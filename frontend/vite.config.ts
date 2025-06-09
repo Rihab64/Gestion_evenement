@@ -5,18 +5,26 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  server: {
-    host: "::",
-    port: 8080,
-  },
-  plugins: [
-    react(),
-    mode === 'development' &&
-    componentTagger(),
-  ].filter(Boolean),
+ 
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+ plugins: [react()],
+  server: {
+    proxy: {
+      '/api': 'http://127.0.0.1:8000', // Laravel API
+    },
+  },
+  // 👇 AJOUTE cette section pour Laravel
+  build: {
+    outDir: "../backend/public/build", // Laravel s'attend à ce dossier
+    emptyOutDir: true,
+    manifest: true,
+    rollupOptions: {
+      input: "./src/main.jsx", // ou le point d'entrée réel de ton app
     },
   },
 }));

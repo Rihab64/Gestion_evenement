@@ -13,10 +13,18 @@ use App\Models\Provider;
 
 class AuthController extends Controller
 {
+    public function index()
+{
+    return response()->json([
+        'success' => true,
+        'message' => 'Bienvenue sur l\'API Auth!',
+    ]);
+}
+
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name'       => 'required|string|max:255',
+            'name'       => 'nullable|string|max:255',
             'email'      => 'required|email|unique:users,email',
             'password'   => 'required|string|min:8|confirmed',
             'user_type'  => ['required', Rule::in(['client', 'provider'])],
@@ -32,7 +40,7 @@ class AuthController extends Controller
             'email'     => $validated['email'],
             'password'  => Hash::make($validated['password']),
             'user_type' => $validated['user_type'],
-            'phone'     => $validated['phone'] ?? null,
+            // 'phone'     => $validated['phone'] ?? null,
             'status'    => 'active',
         ]);
 
@@ -41,14 +49,14 @@ class AuthController extends Controller
                 'user_id'    => $user->id,
                 'first_name' => $validated['first_name'],
                 'last_name'  => $validated['last_name'],
-                'phone'      => $user->phone,
+                // 'phone'      => $user->phone,
             ]);
         } elseif ($user->user_type === 'provider') {
             Provider::create([
                 'user_id'      => $user->id,
                 'company_name' => $validated['company_name'],
                 'business_type'=> $validated['business_type'],
-                'phone'        => $user->phone,
+                // 'phone'        => $user->phone,
             ]);
         }
 
@@ -102,4 +110,5 @@ class AuthController extends Controller
             'user'    => $request->user(),
         ]);
     }
+    
 }

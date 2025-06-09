@@ -84,7 +84,9 @@ const ClientDashboard = () => {
   
   return (
     <MainLayout>
-      <div className="container mx-auto py-8 px-4 md:px-6">
+      <br>
+      </br>
+      <div className="container mx-auto py-10 px-4 md:px-6 mt-7">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold">Tableau de bord</h1>
           <Button asChild>

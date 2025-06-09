@@ -12,14 +12,22 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\SearchController;
 
 
+
+Route::get('/auth', [AuthController::class, 'index']);
+
 // Auth public
-Route::post('/auth/register', [AuthController::class, 'register']);
+
+
 Route::post('/auth/login', [AuthController::class, 'login']);
+
+Route::get('/auth/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/auth/register', [AuthController::class, 'register']);
+
 
 // Authenticated user info/logout
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
-    Route::get('/auth/me', [AuthController::class, 'me']);
+    Route::post('/auth/me', [AuthController::class, 'me']);
 });
 
 // Groupe CLIENT

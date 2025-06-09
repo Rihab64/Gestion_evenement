@@ -53,7 +53,7 @@ const App = () => (
           <Route path="/event-categories/:categoryId" element={<CategoryDetail />} />
           <Route path="/providers" element={<Providers />} />
           <Route path="/providers/:providerId" element={<ProviderProfile />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="api/auth" element={<Auth />} />
           
           {/* Client Dashboard */}
           <Route path="/client/dashboard" element={<ClientDashboard />} />
